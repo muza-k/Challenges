@@ -1,15 +1,23 @@
-class ListNode
-  attr_accessor :val, :next
+# Definition for singly-linked list.
+# class ListNode
+#     attr_accessor :val, :next
+#     def initialize(val)
+#         @val = val
+#         @next = nil
+#     end
+# end
 
-  def initialize(val)
-    @val = val
-    @next = nil
+# @param {ListNode} head
+# @return {Boolean}
+def hasCycle(head)
+  visited_nodes = {}
+  current_node = head
+  while current_node
+    return true if visited_nodes[current_node]
+    visited_nodes[current_node] = true
+    current_node = current_node.next
   end
-end
-
-def has_cycle(head)
+  return false
 
 end
 
-
-head = [3,2,0,-4], pos = 1
