@@ -7,29 +7,68 @@ class ListNode
 
 end
 
+# Definition for singly-linked list.
+# class ListNode
+#     attr_accessor :val, :next
+#     def initialize(val = 0, _next = nil)
+#         @val = val
+#         @next = _next
+#     end
+# end
+# @param {ListNode} list1
+# @param {ListNode} list2
+# @return {ListNode}
 def merge_two_lists(list1, list2)
-  first_list_node = list1
-  second_list_node = list2
   merged_list_node = nil
 
+  # handle scenario where both are nil
+  if !list1 && !list2
+    return nil
+  end
+
+  # handle scenario where list1 or list2 is nil
+  if list1 && !list2
+    return list1
+  elsif !list1 && list2
+    return list2
+  end
+
+  # If both are not nil, then start comparision
+  if (list1.val <= list2.val)
+    merged_list_node = list1
+    list1 = list1.next
+  else
+    merged_list_node = list2
+    list2 = list2.next
+  end
+
+  current_node = merged_list_node
+  first_list_node = list1
+  second_list_node = list2
+
   while first_list_node && second_list_node
-    if (first_list_node.val <= second_list_node.val)
-      if !merged_list
-        merged_list_node = first_list_node
-      else
-        merged_list_node.next = first_list_node
-      end
+    if first_list_node.val <= second_list_node.val
+      current_node.next = first_list_node
       first_list_node = first_list_node.next
     else
-      if !merged_list
-        merged_list_node = second_list_node
-      else
-        merged_list_node.next = second_list_node
-      end
+      current_node.next = second_list_node
       second_list_node = second_list_node.next
     end
+    current_node = current_node.next
   end
-  puts merged_list_node.inspect
+
+  while first_list_node
+    current_node.next = first_list_node
+    current_node = current_node.next
+    first_list_node = first_list_node.next
+  end
+
+  while second_list_node
+    current_node.next = second_list_node
+    current_node = current_node.next
+    second_list_node = second_list_node.next
+  end
+
   merged_list_node
 end
 
