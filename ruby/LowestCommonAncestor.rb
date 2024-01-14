@@ -17,8 +17,8 @@ def lowest_common_ancestor(root, p, q)
   # puts "compare paths"
 
   i = 0
-  p_path = p_path.split(',')
-  q_path = q_path.split(',')
+  p_path = p_path.split(',').map(&:to_i)
+  q_path = q_path.split(',').map(&:to_i)
   puts "P path #{p_path.inspect}"
   puts "Q path is #{q_path.inspect}"
   while i < p_path.length
@@ -36,18 +36,17 @@ def get_path(root, p, path, lookup)
     return nil
   end
 
-  path << root.val if root
   lookup[root.val] = root
 
-  if root && root.val == p
+  if root.val == p
     return "#{path},#{root.val}"
   end
 
-  left_path = get_path(root.left, p,"#{path},#{root.val}", lookup) if root.left
-  return left_path if root.left && left_path
+  left_path = get_path(root.left, p, "#{path},#{root.val}", lookup) if root.left
+  return left_path if left_path
 
-  right_path = get_path(root.right, p,"#{path},#{root.val}", lookup) if root.right
-  return right_path if root.right && right_path
+  right_path = get_path(root.right, p, "#{path},#{root.val}", lookup) if root.right
+  return right_path if right_path
 
   nil
 end
