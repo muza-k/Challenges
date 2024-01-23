@@ -17,6 +17,8 @@ def ladder_length(begin_word, end_word, word_list)
   return 0 unless word_list.include?(end_word)
 
   transformations = precompute_transformations(word_list)
+  puts "Precomputed transformations -"
+  puts transformations.inspect
 
   queue = [[begin_word, 1]]
   visited = {begin_word => true}
@@ -38,3 +40,9 @@ def ladder_length(begin_word, end_word, word_list)
 
   0
 end
+
+beginWord = "hit"
+endWord = "cog"
+wordList = ["hot","dot","dog","lot","log","cog"]
+puts ladder_length(beginWord, endWord, wordList)
+
